@@ -142,6 +142,11 @@ export interface ProductMetadata {
 Note that, on its own, TypeScript cannot enforce a schema on your `json`
 columns. For that, you'll want a tool like [postgres-json-schema][].
 
+### Prefix tableNames with there corresponding schemaName
+
+`--prefixWithI`
+
+It will prefix all exports with the character "I". This allows you to easily separate the interfaces from classes in your codebase.
 
 ### Prefix tableNames with there corresponding schemaName
 

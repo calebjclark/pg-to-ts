@@ -5,6 +5,7 @@ const DEFAULT_OPTIONS: OptionValues = {
   camelCase: false,
   datesAsStrings: false,
   prefixWithSchemaNames: false,
+  prefixWithI: false,
 };
 
 export type OptionValues = {
@@ -16,6 +17,8 @@ export type OptionValues = {
   jsonTypesFile?: string;
   /** Prefix the tablenames with the schema name. */
   prefixWithSchemaNames?: boolean;
+  /** Prefix the tablename interfaces with I. */
+  prefixWithI?: boolean;
 };
 
 export default class Options {

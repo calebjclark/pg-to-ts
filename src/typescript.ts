@@ -120,7 +120,7 @@ export function generateTableInterface(
     }
   }
 
-  const {prefixWithSchemaNames} = options.options;
+  const { prefixWithSchemaNames, prefixWithI } = options.options;
   let qualifiedTableName = tableName;
   let sqlTableName = tableName;
   if (prefixWithSchemaNames) {
@@ -128,7 +128,10 @@ export function generateTableInterface(
     sqlTableName = schemaName + '.' + sqlTableName;
   }
   const tableVarName = getSafeSymbolName(qualifiedTableName); // e.g. schema_table_name
-  const camelTableName = toCamelCase(tableVarName); // e.g. SchemaTableName
+  let camelTableName = toCamelCase(tableVarName); // e.g. SchemaTableName
+  if (prefixWithI) {
+    camelTableName = 'I' + camelTableName;
+  }
 
   const {primaryKey, comment} = tableDefinition;
   const foreignKeys = _.pickBy(

@@ -85,6 +85,46 @@ describe('TypeScript', () => {
       `);
     });
 
+    it('table with "I" prefix', () => {
+      const [tableInterface, names, types] = TypeScript.generateTableInterface(
+        'table_name',
+        {
+          columns: {},
+          primaryKey: null,
+        },
+        schemaName,
+        new Options({
+          prefixWithI: true,
+        }),
+      );
+      expect(tableInterface).toMatchInlineSnapshot(`
+        "
+              // Table table_name
+               export interface ITableName {
+                }
+               export interface ITableNameInput {
+                }
+              const table_name = {
+                tableName: 'table_name',
+                columns: [],
+                requiredForInsert: [],
+                primaryKey: null,
+                foreignKeys: {},
+                $type: null as unknown as ITableName,
+                $input: null as unknown as ITableNameInput
+              } as const;
+          "
+      `);
+      expect(types).toEqual(new Set());
+      expect(names).toMatchInlineSnapshot(`
+        Object {
+          "input": "ITableNameInput",
+          "type": "ITableName",
+          "var": "table_name",
+        }
+      `);
+    });
+
     it('table name is reserved', () => {
       const [tableInterface, names, types] = TypeScript.generateTableInterface(
         'package',

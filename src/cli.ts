@@ -74,6 +74,10 @@ const argv = yargs(hideBin(process.argv))
             ' All exports will be prefixed with the schema name.',
           type: 'boolean',
         },
+        prefixWithI: {
+          describe: ' All exports will be prefixed with the character "I".',
+          type: 'boolean',
+        },
         jsonTypesFile: {
           describe:
             'If a JSON column has an @type jsdoc tag in its comment, assume that ' +
