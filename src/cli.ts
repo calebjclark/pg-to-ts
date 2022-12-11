@@ -108,6 +108,7 @@ const argv = yargs(hideBin(process.argv))
       datesAsStrings: argv.datesAsStrings,
       jsonTypesFile: argv.jsonTypesFile,
       prefixWithSchemaNames: argv.prefixWithSchemaNames,
+      prefixWithI: argv.prefixWithI,
     },
   );
   fs.writeFileSync(argv.output, formattedOutput);
