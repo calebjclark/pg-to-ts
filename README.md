@@ -144,12 +144,6 @@ columns. For that, you'll want a tool like [postgres-json-schema][].
 
 ### Prefix tableNames with there corresponding schemaName
 
-`--prefixWithI`
-
-It will prefix all exports with the character "I". This allows you to easily separate the interfaces from classes in your codebase.
-
-### Prefix tableNames with there corresponding schemaName
-
 `--prefixWithSchemaNames`
 
 It will prefix all exports with the schema name. i.e `schemaname_tablename`. This allows you to easily namespace your exports.
@@ -187,6 +181,20 @@ export const tables = {
   maxi_product,
 };
 ```
+
+
+### Prefix tableNames with there corresponding schemaName
+
+`--prefixWithI`
+
+It will prefix all exports with the character "I". This allows you to easily separate the interfaces from classes in your codebase.
+
+
+### Singularize tableNames for interfaces
+
+`--singularizeInterfaces`
+
+It will singularize any plural tables when create an interface for the table record.
 
 ## Command Line Usage
 

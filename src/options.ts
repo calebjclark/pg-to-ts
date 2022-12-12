@@ -6,6 +6,7 @@ const DEFAULT_OPTIONS: OptionValues = {
   datesAsStrings: false,
   prefixWithSchemaNames: false,
   prefixWithI: false,
+  singularizeInterfaces: false,
 };
 
 export type OptionValues = {
@@ -19,6 +20,7 @@ export type OptionValues = {
   prefixWithSchemaNames?: boolean;
   /** Prefix the tablename interfaces with I. */
   prefixWithI?: boolean;
+  singularizeInterfaces?: boolean;
 };
 
 export default class Options {

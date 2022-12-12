@@ -125,6 +125,46 @@ describe('TypeScript', () => {
       `);
     });
 
+    it('convert plural table into singular interface', () => {
+      const [tableInterface, names, types] = TypeScript.generateTableInterface(
+        'table_names',
+        {
+          columns: {},
+          primaryKey: null,
+        },
+        schemaName,
+        new Options({
+          singularizeInterfaces: true,
+        }),
+      );
+      expect(tableInterface).toMatchInlineSnapshot(`
+        "
+              // Table table_names
+               export interface TableName {
+                }
+               export interface TableNameInput {
+                }
+              const table_names = {
+                tableName: 'table_names',
+                columns: [],
+                requiredForInsert: [],
+                primaryKey: null,
+                foreignKeys: {},
+                $type: null as unknown as TableName,
+                $input: null as unknown as TableNameInput
+              } as const;
+          "
+      `);
+      expect(types).toEqual(new Set());
+      expect(names).toMatchInlineSnapshot(`
+        Object {
+          "input": "TableNameInput",
+          "type": "TableName",
+          "var": "table_names",
+        }
+      `);
+    });
+
     it('table name is reserved', () => {
       const [tableInterface, names, types] = TypeScript.generateTableInterface(
         'package',

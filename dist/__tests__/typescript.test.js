@@ -59,6 +59,17 @@ describe('TypeScript', function () {
             expect(types).toEqual(new Set());
             expect(names).toMatchInlineSnapshot("\n        Object {\n          \"input\": \"ITableNameInput\",\n          \"type\": \"ITableName\",\n          \"var\": \"table_name\",\n        }\n      ");
         });
+        it('table with "I" prefix', function () {
+            var _a = TypeScript.generateTableInterface('table_names', {
+                columns: {},
+                primaryKey: null,
+            }, schemaName, new options_1.default({
+                singularizeInterfaces: true,
+            })), tableInterface = _a[0], names = _a[1], types = _a[2];
+            expect(tableInterface).toMatchInlineSnapshot("\n        \"\n              // Table table_name\n               export interface ITableName {\n                }\n               export interface ITableNameInput {\n                }\n              const table_names = {\n                tableName: 'table_names',\n                columns: [],\n                requiredForInsert: [],\n                primaryKey: null,\n                foreignKeys: {},\n                $type: null as unknown as ITableName,\n                $input: null as unknown as ITableNameInput\n              } as const;\n          \"\n      ");
+            expect(types).toEqual(new Set());
+            expect(names).toMatchInlineSnapshot("\n        Object {\n          \"input\": \"ITableNameInput\",\n          \"type\": \"ITableName\",\n          \"var\": \"table_names\",\n        }\n      ");
+        });
         it('table name is reserved', function () {
             var _a = TypeScript.generateTableInterface('package', {
                 columns: {},

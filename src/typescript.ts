@@ -6,7 +6,7 @@
 //tslint:disable
 
 import _ from 'lodash';
-
+import * as Pluralize from 'pluralize';
 import {TableDefinition, ForeignKey} from './schemaInterfaces';
 import Options from './options';
 
@@ -120,7 +120,7 @@ export function generateTableInterface(
     }
   }
 
-  const { prefixWithSchemaNames, prefixWithI } = options.options;
+  const { prefixWithSchemaNames, prefixWithI, singularizeInterfaces } = options.options;
   let qualifiedTableName = tableName;
   let sqlTableName = tableName;
   if (prefixWithSchemaNames) {
@@ -131,6 +131,9 @@ export function generateTableInterface(
   let camelTableName = toCamelCase(tableVarName); // e.g. SchemaTableName
   if (prefixWithI) {
     camelTableName = 'I' + camelTableName;
+  }
+  if (singularizeInterfaces) {
+    camelTableName = Pluralize.singular(camelTableName);
   }
 
   const {primaryKey, comment} = tableDefinition;

@@ -78,6 +78,10 @@ const argv = yargs(hideBin(process.argv))
           describe: ' All exports will be prefixed with the character "I".',
           type: 'boolean',
         },
+        singularizeInterfaces: {
+          describe: 'If table is plural then singularize the result table record interface',
+          type: 'boolean',
+      },
         jsonTypesFile: {
           describe:
             'If a JSON column has an @type jsdoc tag in its comment, assume that ' +
@@ -109,6 +113,7 @@ const argv = yargs(hideBin(process.argv))
       jsonTypesFile: argv.jsonTypesFile,
       prefixWithSchemaNames: argv.prefixWithSchemaNames,
       prefixWithI: argv.prefixWithI,
+      singularizeInterfaces: argv.singularizeInterfaces,
     },
   );
   fs.writeFileSync(argv.output, formattedOutput);

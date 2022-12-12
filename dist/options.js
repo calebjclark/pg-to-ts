@@ -18,6 +18,7 @@ var DEFAULT_OPTIONS = {
     datesAsStrings: false,
     prefixWithSchemaNames: false,
     prefixWithI: false,
+    singularizeInterfaces: false,
 };
 var Options = /** @class */ (function () {
     function Options(options) {

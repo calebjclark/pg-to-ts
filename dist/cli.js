@@ -107,6 +107,10 @@ var argv = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
             describe: ' All exports will be prefixed with the character "I".',
             type: 'boolean',
         },
+        singularizeInterfaces: {
+            describe: 'If table is plural then singularize the result table record interface',
+            type: 'boolean',
+        },
         jsonTypesFile: {
             describe: 'If a JSON column has an @type jsdoc tag in its comment, assume that ' +
                 'type can be imported from this path.',
@@ -133,6 +137,7 @@ var argv = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
                     jsonTypesFile: argv.jsonTypesFile,
                     prefixWithSchemaNames: argv.prefixWithSchemaNames,
                     prefixWithI: argv.prefixWithI,
+                    singularizeInterfaces: argv.singularizeInterfaces,
                 })];
             case 1:
                 formattedOutput = _a.sent();
