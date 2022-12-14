@@ -1,9 +1,9 @@
-import * as fs from 'fs/promises';
+import * as Fs from 'fs';
 import {typescriptOfSchema} from '../src/index';
 import {PostgresDatabase} from '../src/schemaPostgres';
 
 export async function loadSchema(db: PostgresDatabase, file: string) {
-  const query = await fs.readFile(file, {
+  const query = Fs.readFileSync(file, {
     encoding: 'utf8',
   });
   return await db.query(query);
@@ -15,7 +15,7 @@ export async function getGeneratedTs(
   db: PostgresDatabase,
 ) {
   await loadSchema(db, inputSQLFile);
-  const config = JSON.parse(await fs.readFile(inputConfigFile, 'utf8'));
+  const config = JSON.parse(Fs.readFileSync(inputConfigFile, 'utf8'));
   const {tables, schema, ...options} = config;
   return typescriptOfSchema(db, tables, [], schema, options);
 }

@@ -73,11 +73,74 @@ export interface Users {
   jsonb_array_col: Json[] | null;
   timestamptz_array_col: Date[] | null;
 }
-export interface UsersInput {
+export interface UsersInsert {
   email: string;
   id: number;
   pass_crypt: string;
   creation_time: Date;
+  display_name?: string;
+  data_public?: boolean;
+  description?: string;
+  home_lat?: number | null;
+  home_lon?: number | null;
+  home_zoom?: number | null;
+  nearby?: number | null;
+  pass_salt?: string | null;
+  image_file_name?: string | null;
+  email_valid?: boolean;
+  new_email?: string | null;
+  creation_ip?: string | null;
+  languages?: string | null;
+  status?: user_status_enum;
+  terms_agreed?: Date | null;
+  consider_pd?: boolean;
+  preferred_editor?: string | null;
+  terms_seen?: boolean;
+  auth_uid?: string | null;
+  description_format?: format_enum;
+  image_fingerprint?: string | null;
+  changesets_count?: number;
+  traces_count?: number;
+  diary_entries_count?: number;
+  image_use_gravatar?: boolean;
+  image_content_type?: string | null;
+  auth_provider?: string | null;
+  uuid_column?: string | null;
+  number?: number | null;
+  string?: string | null;
+  money_col?: number | null;
+  char_col?: string | null;
+  time_col?: string | null;
+  inet_col?: string | null;
+  jsonb_col?: Json | null;
+  numeric_col?: number | null;
+  bytea_col?: string | null;
+  bool_array_col?: boolean[] | null;
+  varchar_array_col?: string[] | null;
+  int2_array_col?: number[] | null;
+  int4_array_col?: number[] | null;
+  int8_array_col?: number[] | null;
+  uuid_array_col?: string[] | null;
+  text_array_col?: string[] | null;
+  bytea_array_col?: string[] | null;
+  real_col?: number | null;
+  double_col?: number | null;
+  time_with_tz?: string | null;
+  oid_col?: number | null;
+  interval_col?: string | null;
+  json_col?: Json | null;
+  date_col?: Date | null;
+  unspported_path_type?: any | null;
+  name_type_col?: string | null;
+  json_array_col?: Json[] | null;
+  jsonb_array_col?: Json[] | null;
+  timestamptz_array_col?: Date[] | null;
+}
+export interface UsersUpdate {
+  email?: string;
+  id?: number;
+  pass_crypt?: string;
+  creation_time?: Date;
   display_name?: string;
   data_public?: boolean;
   description?: string;
@@ -143,14 +206,16 @@ const users = {
   primaryKey: null,
   foreignKeys: {},
   $type: null as unknown as Users,
-  $input: null as unknown as UsersInput
+  $insert: null as unknown as UsersInsert,
+  $update: null as unknown as UsersUpdate
 } as const;
 
 
 export interface TableTypes {
   users: {
     select: Users;
-    input: UsersInput;
+    insert: UsersInsert;
+    update: UsersUpdate;
   };
 }
 
@@ -233,11 +298,74 @@ export interface Users {
   jsonbArrayCol: Json[] | null;
   timestamptzArrayCol: Date[] | null;
 }
-export interface UsersInput {
+export interface UsersInsert {
   email: string;
   id: number;
   passCrypt: string;
   creationTime: Date;
+  displayName?: string;
+  dataPublic?: boolean;
+  description?: string;
+  homeLat?: number | null;
+  homeLon?: number | null;
+  homeZoom?: number | null;
+  nearby?: number | null;
+  passSalt?: string | null;
+  imageFileName?: string | null;
+  emailValid?: boolean;
+  newEmail?: string | null;
+  creationIp?: string | null;
+  languages?: string | null;
+  status?: UserStatusEnum;
+  termsAgreed?: Date | null;
+  considerPd?: boolean;
+  preferredEditor?: string | null;
+  termsSeen?: boolean;
+  authUid?: string | null;
+  descriptionFormat?: FormatEnum;
+  imageFingerprint?: string | null;
+  changesetsCount?: number;
+  tracesCount?: number;
+  diaryEntriesCount?: number;
+  imageUseGravatar?: boolean;
+  imageContentType?: string | null;
+  authProvider?: string | null;
+  uuidColumn?: string | null;
+  number?: number | null;
+  string?: string | null;
+  moneyCol?: number | null;
+  charCol?: string | null;
+  timeCol?: string | null;
+  inetCol?: string | null;
+  jsonbCol?: Json | null;
+  numericCol?: number | null;
+  byteaCol?: string | null;
+  boolArrayCol?: boolean[] | null;
+  varcharArrayCol?: string[] | null;
+  int2ArrayCol?: number[] | null;
+  int4ArrayCol?: number[] | null;
+  int8ArrayCol?: number[] | null;
+  uuidArrayCol?: string[] | null;
+  textArrayCol?: string[] | null;
+  byteaArrayCol?: string[] | null;
+  realCol?: number | null;
+  doubleCol?: number | null;
+  timeWithTz?: string | null;
+  oidCol?: number | null;
+  intervalCol?: string | null;
+  jsonCol?: Json | null;
+  dateCol?: Date | null;
+  unspportedPathType?: any | null;
+  nameTypeCol?: string | null;
+  jsonArrayCol?: Json[] | null;
+  jsonbArrayCol?: Json[] | null;
+  timestamptzArrayCol?: Date[] | null;
+}
+export interface UsersUpdate {
+  email?: string;
+  id?: number;
+  passCrypt?: string;
+  creationTime?: Date;
   displayName?: string;
   dataPublic?: boolean;
   description?: string;
@@ -303,14 +431,16 @@ const users = {
   primaryKey: null,
   foreignKeys: {},
   $type: null as unknown as Users,
-  $input: null as unknown as UsersInput
+  $insert: null as unknown as UsersInsert,
+  $update: null as unknown as UsersUpdate
 } as const;
 
 
 export interface TableTypes {
   users: {
     select: Users;
-    input: UsersInput;
+    insert: UsersInsert;
+    update: UsersUpdate;
   };
 }
 
@@ -346,7 +476,7 @@ export interface Comment {
   statuses: comment_status_enum[] | null;
 }
 /** Variant-level comments */
-export interface CommentInput {
+export interface CommentInsert {
   id?: string;
   doc_id: string;
   author_id: string;
@@ -356,6 +486,20 @@ export interface CommentInput {
   metadata?: CommentMetadata | null;
   /** Content of the comment, formatted with Markdown. May contain @mentions. */
   content_md: string;
+  /** List of statuses; Just an array for testing! */
+  statuses?: comment_status_enum[] | null;
+}
+/** Variant-level comments */
+export interface CommentUpdate {
+  id?: string;
+  doc_id?: string;
+  author_id?: string;
+  created_at?: string | null;
+  modified_at?: string | null;
+  /** Additional comment info @type {CommentMetadata} */
+  metadata?: CommentMetadata | null;
+  /** Content of the comment, formatted with Markdown. May contain @mentions. */
+  content_md?: string;
   /** List of statuses; Just an array for testing! */
   statuses?: comment_status_enum[] | null;
 }
@@ -369,7 +513,8 @@ const comment = {
     author_id: { table: 'users', column: 'id', $type: null as unknown as Users },
   },
   $type: null as unknown as Comment,
-  $input: null as unknown as CommentInput
+  $insert: null as unknown as CommentInsert,
+  $update: null as unknown as CommentUpdate
 } as const;
 
 // Table doc
@@ -379,9 +524,15 @@ export interface Doc {
   title: string | null;
   contents: string | null;
 }
-export interface DocInput {
+export interface DocInsert {
   id?: string;
   created_by: string;
+  title?: string | null;
+  contents?: string | null;
+}
+export interface DocUpdate {
+  id?: string;
+  created_by?: string;
   title?: string | null;
   contents?: string | null;
 }
@@ -392,15 +543,19 @@ const doc = {
   primaryKey: 'id',
   foreignKeys: { created_by: { table: 'users', column: 'id', $type: null as unknown as Users }, },
   $type: null as unknown as Doc,
-  $input: null as unknown as DocInput
+  $insert: null as unknown as DocInsert,
+  $update: null as unknown as DocUpdate
 } as const;
 
 // Table table_with_underscores
 export interface TableWithUnderscores {
   column_with_underscores: string;
 }
-export interface TableWithUnderscoresInput {
+export interface TableWithUnderscoresInsert {
   column_with_underscores: string;
+}
+export interface TableWithUnderscoresUpdate {
+  column_with_underscores?: string;
 }
 const table_with_underscores = {
   tableName: 'table_with_underscores',
@@ -409,7 +564,8 @@ const table_with_underscores = {
   primaryKey: null,
   foreignKeys: {},
   $type: null as unknown as TableWithUnderscores,
-  $input: null as unknown as TableWithUnderscoresInput
+  $insert: null as unknown as TableWithUnderscoresInsert,
+  $update: null as unknown as TableWithUnderscoresUpdate
 } as const;
 
 // Table users
@@ -418,9 +574,14 @@ export interface Users {
   name: string;
   pronoun: string | null;
 }
-export interface UsersInput {
+export interface UsersInsert {
   id?: string;
   name: string;
+  pronoun?: string | null;
+}
+export interface UsersUpdate {
+  id?: string;
+  name?: string;
   pronoun?: string | null;
 }
 const users = {
@@ -430,26 +591,31 @@ const users = {
   primaryKey: 'id',
   foreignKeys: {},
   $type: null as unknown as Users,
-  $input: null as unknown as UsersInput
+  $insert: null as unknown as UsersInsert,
+  $update: null as unknown as UsersUpdate
 } as const;
 
 
 export interface TableTypes {
   comment: {
     select: Comment;
-    input: CommentInput;
+    insert: CommentInsert;
+    update: CommentUpdate;
   };
   doc: {
     select: Doc;
-    input: DocInput;
+    insert: DocInsert;
+    update: DocUpdate;
   };
   table_with_underscores: {
     select: TableWithUnderscores;
-    input: TableWithUnderscoresInput;
+    insert: TableWithUnderscoresInsert;
+    update: TableWithUnderscoresUpdate;
   };
   users: {
     select: Users;
-    input: UsersInput;
+    insert: UsersInsert;
+    update: UsersUpdate;
   };
 }
 
@@ -488,7 +654,7 @@ export interface PublicComment {
   statuses: CommentStatusEnum[] | null;
 }
 /** Variant-level comments */
-export interface PublicCommentInput {
+export interface PublicCommentInsert {
   id?: string;
   docId: string;
   authorId: string;
@@ -498,6 +664,20 @@ export interface PublicCommentInput {
   metadata?: CommentMetadata | null;
   /** Content of the comment, formatted with Markdown. May contain @mentions. */
   contentMd: string;
+  /** List of statuses; Just an array for testing! */
+  statuses?: CommentStatusEnum[] | null;
+}
+/** Variant-level comments */
+export interface PublicCommentUpdate {
+  id?: string;
+  docId?: string;
+  authorId?: string;
+  createdAt?: string | null;
+  modifiedAt?: string | null;
+  /** Additional comment info @type {CommentMetadata} */
+  metadata?: CommentMetadata | null;
+  /** Content of the comment, formatted with Markdown. May contain @mentions. */
+  contentMd?: string;
   /** List of statuses; Just an array for testing! */
   statuses?: CommentStatusEnum[] | null;
 }
@@ -511,7 +691,8 @@ const public_comment = {
     author_id: { table: 'users', column: 'id', $type: null as unknown as PublicUsers },
   },
   $type: null as unknown as PublicComment,
-  $input: null as unknown as PublicCommentInput
+  $insert: null as unknown as PublicCommentInsert,
+  $update: null as unknown as PublicCommentUpdate
 } as const;
 
 // Table public.doc
@@ -521,9 +702,15 @@ export interface PublicDoc {
   title: string | null;
   contents: string | null;
 }
-export interface PublicDocInput {
+export interface PublicDocInsert {
   id?: string;
   createdBy: string;
+  title?: string | null;
+  contents?: string | null;
+}
+export interface PublicDocUpdate {
+  id?: string;
+  createdBy?: string;
   title?: string | null;
   contents?: string | null;
 }
@@ -534,15 +721,19 @@ const public_doc = {
   primaryKey: 'id',
   foreignKeys: { created_by: { table: 'users', column: 'id', $type: null as unknown as PublicUsers }, },
   $type: null as unknown as PublicDoc,
-  $input: null as unknown as PublicDocInput
+  $insert: null as unknown as PublicDocInsert,
+  $update: null as unknown as PublicDocUpdate
 } as const;
 
 // Table public.table_with_underscores
 export interface PublicTableWithUnderscores {
   columnWithUnderscores: string;
 }
-export interface PublicTableWithUnderscoresInput {
+export interface PublicTableWithUnderscoresInsert {
   columnWithUnderscores: string;
+}
+export interface PublicTableWithUnderscoresUpdate {
+  columnWithUnderscores?: string;
 }
 const public_table_with_underscores = {
   tableName: 'public.table_with_underscores',
@@ -551,7 +742,8 @@ const public_table_with_underscores = {
   primaryKey: null,
   foreignKeys: {},
   $type: null as unknown as PublicTableWithUnderscores,
-  $input: null as unknown as PublicTableWithUnderscoresInput
+  $insert: null as unknown as PublicTableWithUnderscoresInsert,
+  $update: null as unknown as PublicTableWithUnderscoresUpdate
 } as const;
 
 // Table public.users
@@ -560,9 +752,14 @@ export interface PublicUsers {
   name: string;
   pronoun: string | null;
 }
-export interface PublicUsersInput {
+export interface PublicUsersInsert {
   id?: string;
   name: string;
+  pronoun?: string | null;
+}
+export interface PublicUsersUpdate {
+  id?: string;
+  name?: string;
   pronoun?: string | null;
 }
 const public_users = {
@@ -572,26 +769,31 @@ const public_users = {
   primaryKey: 'id',
   foreignKeys: {},
   $type: null as unknown as PublicUsers,
-  $input: null as unknown as PublicUsersInput
+  $insert: null as unknown as PublicUsersInsert,
+  $update: null as unknown as PublicUsersUpdate
 } as const;
 
 
 export interface TableTypes {
   public_comment: {
     select: PublicComment;
-    input: PublicCommentInput;
+    insert: PublicCommentInsert;
+    update: PublicCommentUpdate;
   };
   public_doc: {
     select: PublicDoc;
-    input: PublicDocInput;
+    insert: PublicDocInsert;
+    update: PublicDocUpdate;
   };
   public_table_with_underscores: {
     select: PublicTableWithUnderscores;
-    input: PublicTableWithUnderscoresInput;
+    insert: PublicTableWithUnderscoresInsert;
+    update: PublicTableWithUnderscoresUpdate;
   };
   public_users: {
     select: PublicUsers;
-    input: PublicUsersInput;
+    insert: PublicUsersInsert;
+    update: PublicUsersUpdate;
   };
 }
 
@@ -618,9 +820,14 @@ export interface PublicUsers {
   name: string;
   pronoun: string | null;
 }
-export interface PublicUsersInput {
+export interface PublicUsersInsert {
   id?: string;
   name: string;
+  pronoun?: string | null;
+}
+export interface PublicUsersUpdate {
+  id?: string;
+  name?: string;
   pronoun?: string | null;
 }
 const public_users = {
@@ -630,15 +837,19 @@ const public_users = {
   primaryKey: 'id',
   foreignKeys: {},
   $type: null as unknown as PublicUsers,
-  $input: null as unknown as PublicUsersInput
+  $insert: null as unknown as PublicUsersInsert,
+  $update: null as unknown as PublicUsersUpdate
 } as const;
 
 // Table public.table_with_underscores
 export interface PublicTableWithUnderscores {
   column_with_underscores: string;
 }
-export interface PublicTableWithUnderscoresInput {
+export interface PublicTableWithUnderscoresInsert {
   column_with_underscores: string;
+}
+export interface PublicTableWithUnderscoresUpdate {
+  column_with_underscores?: string;
 }
 const public_table_with_underscores = {
   tableName: 'public.table_with_underscores',
@@ -647,18 +858,21 @@ const public_table_with_underscores = {
   primaryKey: null,
   foreignKeys: {},
   $type: null as unknown as PublicTableWithUnderscores,
-  $input: null as unknown as PublicTableWithUnderscoresInput
+  $insert: null as unknown as PublicTableWithUnderscoresInsert,
+  $update: null as unknown as PublicTableWithUnderscoresUpdate
 } as const;
 
 
 export interface TableTypes {
   public_users: {
     select: PublicUsers;
-    input: PublicUsersInput;
+    insert: PublicUsersInsert;
+    update: PublicUsersUpdate;
   };
   public_table_with_underscores: {
     select: PublicTableWithUnderscores;
-    input: PublicTableWithUnderscoresInput;
+    insert: PublicTableWithUnderscoresInsert;
+    update: PublicTableWithUnderscoresUpdate;
   };
 }
 

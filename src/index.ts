@@ -110,7 +110,8 @@ export async function typescriptOfSchema(
       names => `
     ${names.var}: {
       select: ${names.type};
-      input: ${names.input};
+      insert: ${names.insert};
+      update: ${names.update};
     };`,
     )
     .join('');

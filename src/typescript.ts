@@ -59,7 +59,8 @@ function isNonNullish<T>(x: T): x is Exclude<T, null | undefined> {
 export interface TableNames {
   var: string;
   type: string;
-  input: string;
+  insert: string;
+  update: string;
 }
 
 /**
@@ -89,6 +90,7 @@ export function generateTableInterface(
 ): [code: string, names: TableNames, typesToImport: Set<string>] {
   let selectableMembers = '';
   let insertableMembers = '';
+  let updatableMembers = '';
   const columns: string[] = [];
   const requiredForInsert: string[] = [];
   const typesToImport = new Set<string>();
@@ -113,6 +115,7 @@ export function generateTableInterface(
 
     selectableMembers += `${jsdoc}${columnName}: ${tsType}${possiblyOrNull};\n`;
     insertableMembers += `${jsdoc}${columnName}${insertablyOptional}: ${tsType}${possiblyOrNull};\n`;
+    updatableMembers += `${jsdoc}${columnName}?: ${tsType}${possiblyOrNull};\n`;
 
     columns.push(columnName);
     if (!columnDef.nullable && !columnDef.hasDefault) {
@@ -132,6 +135,7 @@ export function generateTableInterface(
   if (prefixWithI) {
     camelTableName = 'I' + camelTableName;
   }
+
   if (singularizeInterfaces) {
     camelTableName = Pluralize.singular(camelTableName);
   }
@@ -144,18 +148,21 @@ export function generateTableInterface(
   const jsdoc = comment ? `/** ${comment} */\n` : '';
 
   const names: TableNames = {
-    var: tableVarName,
+    insert: camelTableName + 'Insert',
+    update: camelTableName + 'Update',
     type: camelTableName,
-    input: camelTableName + 'Input',
+    var: tableVarName,
   };
 
   return [
     `
       // Table ${sqlTableName}
-      ${jsdoc} export interface ${names.type} {
+      ${jsdoc ? `${jsdoc} ` : '' }export interface ${names.type} {
         ${selectableMembers}}
-      ${jsdoc} export interface ${names.input} {
+      ${jsdoc ? `${jsdoc} ` : '' }export interface ${names.insert} {
         ${insertableMembers}}
+      ${jsdoc ? `${jsdoc} ` : '' }export interface ${names.update} {
+        ${updatableMembers}}
       const ${names.var} = {
         tableName: '${sqlTableName}',
         columns: ${quotedArray(columns)},
@@ -163,7 +170,8 @@ export function generateTableInterface(
         primaryKey: ${quoteNullable(primaryKey)},
         foreignKeys: ${quoteForeignKeyMap(foreignKeys)},
         $type: null as unknown as ${names.type},
-        $input: null as unknown as ${names.input}
+        $insert: null as unknown as ${names.insert},
+        $update: null as unknown as ${names.update}
       } as const;
   `,
     names,

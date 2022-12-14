@@ -142,7 +142,7 @@ function typescriptOfSchema(dbIn, tables, excludedTables, inSchema, options) {
                         return names;
                     });
                     typeMaps = tableNames
-                        .map(function (names) { return "\n    ".concat(names.var, ": {\n      select: ").concat(names.type, ";\n      input: ").concat(names.input, ";\n    };"); })
+                        .map(function (names) { return "\n    ".concat(names.var, ": {\n      select: ").concat(names.type, ";\n      insert: ").concat(names.insert, ";\n      update: ").concat(names.update, ";\n    };"); })
                         .join('');
                     tableMap = tableNames.map(function (names) { return names.var; }).join(',\n  ');
                     output = '/* tslint:disable */\n/* eslint-disable */\n\n';

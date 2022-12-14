@@ -20,7 +20,7 @@ export interface Product {
   description: string;
   created_at: Date;
 }
-export interface ProductInput {
+export interface ProductInsert {
   id?: string;
   name: string;
   description: string;
@@ -35,7 +35,8 @@ const product = {
 export interface TableTypes {
   product: {
     select: Product;
-    input: ProductInput;
+    insert: ProductInsert;
+    update: ProductUpdate;
   };
 }
 
@@ -158,7 +159,7 @@ export interface MaxiProduct {
   description: string;
   created_at: Date;
 }
-export interface MaxiProductInput {
+export interface MaxiProductInsert {
   id?: string;
   name: string;
   description: string;
@@ -173,7 +174,7 @@ const maxi_product = {
 export interface TableTypes {
   maxi_product: {
     select: MaxiProduct;
-    input: MaxiProductInput;
+    insert: MaxiProductInsert;
   };
 }
 

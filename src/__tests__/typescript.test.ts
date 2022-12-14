@@ -20,9 +20,11 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table tableName
-               export interface TableName {
+              export interface TableName {
                 }
-               export interface TableNameInput {
+              export interface TableNameInsert {
+                }
+              export interface TableNameUpdate {
                 }
               const tableName = {
                 tableName: 'tableName',
@@ -31,15 +33,17 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as TableName,
-                $input: null as unknown as TableNameInput
+                $insert: null as unknown as TableNameInsert,
+                $update: null as unknown as TableNameUpdate
               } as const;
           "
       `);
       expect(types).toEqual(new Set());
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TableNameInput",
+          "insert": "TableNameInsert",
           "type": "TableName",
+          "update": "TableNameUpdate",
           "var": "tableName",
         }
       `);
@@ -60,9 +64,11 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table testschemaname.table_name
-               export interface TestschemanameTableName {
+              export interface TestschemanameTableName {
                 }
-               export interface TestschemanameTableNameInput {
+              export interface TestschemanameTableNameInsert {
+                }
+              export interface TestschemanameTableNameUpdate {
                 }
               const testschemaname_table_name = {
                 tableName: 'testschemaname.table_name',
@@ -71,15 +77,17 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as TestschemanameTableName,
-                $input: null as unknown as TestschemanameTableNameInput
+                $insert: null as unknown as TestschemanameTableNameInsert,
+                $update: null as unknown as TestschemanameTableNameUpdate
               } as const;
           "
       `);
       expect(types).toEqual(new Set());
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TestschemanameTableNameInput",
+          "insert": "TestschemanameTableNameInsert",
           "type": "TestschemanameTableName",
+          "update": "TestschemanameTableNameUpdate",
           "var": "testschemaname_table_name",
         }
       `);
@@ -100,9 +108,11 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table table_name
-               export interface ITableName {
+              export interface ITableName {
                 }
-               export interface ITableNameInput {
+              export interface ITableNameInsert {
+                }
+              export interface ITableNameUpdate {
                 }
               const table_name = {
                 tableName: 'table_name',
@@ -111,15 +121,17 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as ITableName,
-                $input: null as unknown as ITableNameInput
+                $insert: null as unknown as ITableNameInsert,
+                $update: null as unknown as ITableNameUpdate
               } as const;
           "
       `);
       expect(types).toEqual(new Set());
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "ITableNameInput",
+          "insert": "ITableNameInsert",
           "type": "ITableName",
+          "update": "ITableNameUpdate",
           "var": "table_name",
         }
       `);
@@ -140,9 +152,11 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table table_names
-               export interface TableName {
+              export interface TableName {
                 }
-               export interface TableNameInput {
+              export interface TableNameInsert {
+                }
+              export interface TableNameUpdate {
                 }
               const table_names = {
                 tableName: 'table_names',
@@ -151,15 +165,17 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as TableName,
-                $input: null as unknown as TableNameInput
+                $insert: null as unknown as TableNameInsert,
+                $update: null as unknown as TableNameUpdate
               } as const;
           "
       `);
       expect(types).toEqual(new Set());
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TableNameInput",
+          "insert": "TableNameInsert",
           "type": "TableName",
+          "update": "TableNameUpdate",
           "var": "table_names",
         }
       `);
@@ -178,9 +194,11 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table package
-               export interface Package {
+              export interface Package {
                 }
-               export interface PackageInput {
+              export interface PackageInsert {
+                }
+              export interface PackageUpdate {
                 }
               const package_ = {
                 tableName: 'package',
@@ -189,15 +207,17 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as Package,
-                $input: null as unknown as PackageInput
+                $insert: null as unknown as PackageInsert,
+                $update: null as unknown as PackageUpdate
               } as const;
           "
       `);
       expect(types).toEqual(new Set());
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "PackageInput",
+          "insert": "PackageInsert",
           "type": "Package",
+          "update": "PackageUpdate",
           "var": "package_",
         }
       `);
@@ -229,13 +249,17 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table tableName
-               export interface TableName {
+              export interface TableName {
                 col1: string;
         col2: boolean;
         }
-               export interface TableNameInput {
+              export interface TableNameInsert {
                 col1: string;
         col2: boolean;
+        }
+              export interface TableNameUpdate {
+                col1?: string;
+        col2?: boolean;
         }
               const tableName = {
                 tableName: 'tableName',
@@ -244,14 +268,16 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as TableName,
-                $input: null as unknown as TableNameInput
+                $insert: null as unknown as TableNameInsert,
+                $update: null as unknown as TableNameUpdate
               } as const;
           "
       `);
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TableNameInput",
+          "insert": "TableNameInsert",
           "type": "TableName",
+          "update": "TableNameUpdate",
           "var": "tableName",
         }
       `);
@@ -292,15 +318,20 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table tableName
-               export interface TableName {
+              export interface TableName {
                 string: string;
         number: number;
         package: boolean;
         }
-               export interface TableNameInput {
+              export interface TableNameInsert {
                 string: string;
         number: number;
         package: boolean;
+        }
+              export interface TableNameUpdate {
+                string?: string;
+        number?: number;
+        package?: boolean;
         }
               const tableName = {
                 tableName: 'tableName',
@@ -309,14 +340,16 @@ describe('TypeScript', () => {
                 primaryKey: null,
                 foreignKeys: {},
                 $type: null as unknown as TableName,
-                $input: null as unknown as TableNameInput
+                $insert: null as unknown as TableNameInsert,
+                $update: null as unknown as TableNameUpdate
               } as const;
           "
       `);
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TableNameInput",
+          "insert": "TableNameInsert",
           "type": "TableName",
+          "update": "TableNameUpdate",
           "var": "tableName",
         }
       `);
@@ -359,15 +392,20 @@ describe('TypeScript', () => {
       expect(tableInterface).toMatchInlineSnapshot(`
         "
               // Table table_with_foreign_key
-               export interface TableWithForeignKey {
+              export interface TableWithForeignKey {
                 id: string;
         user_id: string;
         sentiment: string;
         }
-               export interface TableWithForeignKeyInput {
+              export interface TableWithForeignKeyInsert {
                 id: string;
         user_id: string;
         sentiment: string;
+        }
+              export interface TableWithForeignKeyUpdate {
+                id?: string;
+        user_id?: string;
+        sentiment?: string;
         }
               const table_with_foreign_key = {
                 tableName: 'table_with_foreign_key',
@@ -376,14 +414,16 @@ describe('TypeScript', () => {
                 primaryKey: 'id',
                 foreignKeys: {user_id: { table: 'other_table', column: 'id', $type: null as unknown /* other_table */ },},
                 $type: null as unknown as TableWithForeignKey,
-                $input: null as unknown as TableWithForeignKeyInput
+                $insert: null as unknown as TableWithForeignKeyInsert,
+                $update: null as unknown as TableWithForeignKeyUpdate
               } as const;
           "
       `);
       expect(names).toMatchInlineSnapshot(`
         Object {
-          "input": "TableWithForeignKeyInput",
+          "insert": "TableWithForeignKeyInsert",
           "type": "TableWithForeignKey",
+          "update": "TableWithForeignKeyUpdate",
           "var": "table_with_foreign_key",
         }
       `);
@@ -420,7 +460,8 @@ describe('TypeScript', () => {
       primaryKey: 'id',
       foreignKeys: {user_id: { table: 'other_table', column: 'id', $type: null as unknown /* other_table */ },},
       $type: null as unknown as TableWithForeignKey,
-      $input: null as unknown as TableWithForeignKeyInput
+      $insert: null as unknown as TableWithForeignKeyInsert,
+      $update: null as unknown as TableWithForeignKeyUpdate
     } as const;
     `;
     it('should attach joined types to generated TypeScript output', () => {
@@ -429,7 +470,8 @@ describe('TypeScript', () => {
           other_table: {
             var: 'other_table',
             type: 'OtherTable',
-            input: 'OtherTableInput',
+            insert: 'OtherTableInsert',
+            update: 'OtherTableUpdate',
           },
         }),
       ).toMatchInlineSnapshot(`
@@ -441,7 +483,8 @@ describe('TypeScript', () => {
               primaryKey: 'id',
               foreignKeys: {user_id: { table: 'other_table', column: 'id', $type: null as unknown as OtherTable },},
               $type: null as unknown as TableWithForeignKey,
-              $input: null as unknown as TableWithForeignKeyInput
+              $insert: null as unknown as TableWithForeignKeyInsert,
+              $update: null as unknown as TableWithForeignKeyUpdate
             } as const;
             "
       `);
@@ -457,7 +500,8 @@ describe('TypeScript', () => {
               primaryKey: 'id',
               foreignKeys: {user_id: { table: 'other_table', column: 'id', $type: null as unknown /* other_table */ },},
               $type: null as unknown as TableWithForeignKey,
-              $input: null as unknown as TableWithForeignKeyInput
+              $insert: null as unknown as TableWithForeignKeyInsert,
+              $update: null as unknown as TableWithForeignKeyUpdate
             } as const;
             "
       `);

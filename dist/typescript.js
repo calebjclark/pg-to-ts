@@ -85,6 +85,7 @@ exports.attachJoinTypes = attachJoinTypes;
 function generateTableInterface(tableName, tableDefinition, schemaName, options) {
     var selectableMembers = '';
     var insertableMembers = '';
+    var updatableMembers = '';
     var columns = [];
     var requiredForInsert = [];
     var typesToImport = new Set();
@@ -101,6 +102,7 @@ function generateTableInterface(tableName, tableDefinition, schemaName, options)
         }
         selectableMembers += "".concat(jsdoc_1).concat(columnName, ": ").concat(tsType).concat(possiblyOrNull, ";\n");
         insertableMembers += "".concat(jsdoc_1).concat(columnName).concat(insertablyOptional, ": ").concat(tsType).concat(possiblyOrNull, ";\n");
+        updatableMembers += "".concat(jsdoc_1).concat(columnName, "?: ").concat(tsType).concat(possiblyOrNull, ";\n");
         columns.push(columnName);
         if (!columnDef.nullable && !columnDef.hasDefault) {
             requiredForInsert.push(columnName);
@@ -125,12 +127,13 @@ function generateTableInterface(tableName, tableDefinition, schemaName, options)
     var foreignKeys = lodash_1.default.pickBy(lodash_1.default.mapValues(tableDefinition.columns, function (c) { return c.foreignKey; }), isNonNullish);
     var jsdoc = comment ? "/** ".concat(comment, " */\n") : '';
     var names = {
-        var: tableVarName,
+        insert: camelTableName + 'Insert',
+        update: camelTableName + 'Update',
         type: camelTableName,
-        input: camelTableName + 'Input',
+        var: tableVarName,
     };
     return [
-        "\n      // Table ".concat(sqlTableName, "\n      ").concat(jsdoc, " export interface ").concat(names.type, " {\n        ").concat(selectableMembers, "}\n      ").concat(jsdoc, " export interface ").concat(names.input, " {\n        ").concat(insertableMembers, "}\n      const ").concat(names.var, " = {\n        tableName: '").concat(sqlTableName, "',\n        columns: ").concat(quotedArray(columns), ",\n        requiredForInsert: ").concat(quotedArray(requiredForInsert), ",\n        primaryKey: ").concat(quoteNullable(primaryKey), ",\n        foreignKeys: ").concat(quoteForeignKeyMap(foreignKeys), ",\n        $type: null as unknown as ").concat(names.type, ",\n        $input: null as unknown as ").concat(names.input, "\n      } as const;\n  "),
+        "\n      // Table ".concat(sqlTableName, "\n      ").concat(jsdoc ? "".concat(jsdoc, " ") : '', "export interface ").concat(names.type, " {\n        ").concat(selectableMembers, "}\n      ").concat(jsdoc ? "".concat(jsdoc, " ") : '', "export interface ").concat(names.insert, " {\n        ").concat(insertableMembers, "}\n      ").concat(jsdoc ? "".concat(jsdoc, " ") : '', "export interface ").concat(names.update, " {\n        ").concat(updatableMembers, "}\n      const ").concat(names.var, " = {\n        tableName: '").concat(sqlTableName, "',\n        columns: ").concat(quotedArray(columns), ",\n        requiredForInsert: ").concat(quotedArray(requiredForInsert), ",\n        primaryKey: ").concat(quoteNullable(primaryKey), ",\n        foreignKeys: ").concat(quoteForeignKeyMap(foreignKeys), ",\n        $type: null as unknown as ").concat(names.type, ",\n        $insert: null as unknown as ").concat(names.insert, ",\n        $update: null as unknown as ").concat(names.update, "\n      } as const;\n  "),
         names,
         typesToImport,
     ];
